@@ -1,5 +1,6 @@
 #FROM java:8
-FROM openjdk:8
+#FROM openjdk:8
+FROM 987846/jdk1.8
 
 MAINTAINER oddfar
 
