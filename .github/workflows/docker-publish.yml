@@ -70,8 +70,8 @@ jobs:
               
               docker buildx create --use
               docker buildx build --platform linux/arm64 \
-                      #-t birdxs/campus-imaotai:${GITHUB_REF##*/}${{ github.run_number }} \
-                      -t birdxs/campus-imaotai:1.0.11
+                      -t birdxs/campus-imaotai:${GITHUB_REF##*/}${{ github.run_number }} \
+                      #-t birdxs/campus-imaotai:1.0.11
                       --push \
                       -f ./campus-modular/Dockerfile .
  
