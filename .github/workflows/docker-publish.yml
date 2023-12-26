@@ -63,7 +63,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           # Platforms to install (e.g. arm64,riscv64,arm)
           # platforms: arm64
-          platforms: arm64
+          platforms: all
  
       - name: Build and push Docker image
         run: |
