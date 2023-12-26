@@ -32,7 +32,8 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        #uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Login to DockerHub
         uses: docker/login-action@v2
@@ -51,7 +52,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        uses: docker/metadata-action@v5
         with:
           images: birdxs/campus-imaotai
       - name: Docker Setup QEMU
@@ -63,14 +64,17 @@ jobs:
           image: tonistiigi/binfmt:latest
           # Platforms to install (e.g. arm64,riscv64,arm)
           # platforms: arm64
-          platforms: arm64
- 
+          platforms: all
+
       - name: Build and push Docker image
         run: |
-            
-              docker buildx build --platform linux/arm64 \
-                      #-t birdxs/campus-imaotai:${GITHUB_REF##*/}${{ github.run_number }} \
-                      -t birdxs/campus-imaotai:1.0.11
+              
+              docker buildx create --use
+              docker buildx build --platform linux/amd64 \
+                      -t birdxs/campus-imaotai-amd64:1.0.11 \
                       --push \
-                      -f ./campus-modular/Dockerfile .
- 
+                      -f ./campus-modular/Dockerfile-amd64 .
+              docker buildx build --platform linux/arm64 \
+                      -t birdxs/campus-imaotai-arm64:1.0.11 \
+                      --push \
+                      -f ./campus-modular/Dockerfile-arm64 .
