@@ -63,14 +63,15 @@ jobs:
           image: tonistiigi/binfmt:latest
           # Platforms to install (e.g. arm64,riscv64,arm)
           # platforms: arm64
-          platforms: all
+          platforms: arm64
  
       - name: Build and push Docker image
         run: |
               
               docker buildx create --use
               docker buildx build --platform linux/arm64 \
-                      -t birdxs/campus-imaotai:${GITHUB_REF##*/}${{ github.run_number }} \
+                      #-t birdxs/campus-imaotai:${GITHUB_REF##*/}${{ github.run_number }} \
+                      -t birdxs/campus-imaotai:1.0.11
                       --push \
                       -f ./campus-modular/Dockerfile .
  
